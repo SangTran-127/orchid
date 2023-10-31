@@ -1,31 +1,47 @@
-import { StyleSheet } from 'react-native';
+import { Text, makeStyles } from "@rneui/themed";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { FlatList, View } from "react-native";
+import { useAppContext } from "../../context/Context";
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import PlantItem from "../../components/PlantItem";
 
 export default function TabOneScreen() {
+  const styles = useStyles();
+  const { plants } = useAppContext();
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Text h2 style={styles.title}>
+        New arrivals
+      </Text>
+      <View
+        style={{
+          height: "100%",
+        }}
+      >
+        <FlatList
+          style={styles.list}
+          showsVerticalScrollIndicator={false}
+          data={plants}
+          keyExtractor={(plant) => plant.name}
+          renderItem={({ item }) => <PlantItem item={item} type="normal" />}
+        />
+      </View>
+      {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme) => ({
+  list: {
+    width: "100%",
+  },
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 10,
+    backgroundColor: theme.colors.white,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    color: theme.colors.primary,
+    fontSize: 700,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+}));
