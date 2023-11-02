@@ -16,6 +16,7 @@ interface AppContextType {
   favourites: Plant[];
   addData: (plant: Plant) => Promise<void>;
   deleteData: (plant: Plant) => Promise<void>;
+  deleteAll: () => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType>({} as AppContextType);
@@ -26,6 +27,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [categories] = useState<string[]>(getAllCategories());
   const [plants] = useState<Plant[]>(getAllFlowerFromDb());
   const [favourites, setFavourites] = useState<Plant[]>([]);
+
+  const deleteAll = async () => {
+    try {
+      if (favourites.length > 1) {
+        setFavourites([]);
+        await AsyncStorage.setItem("favourites", JSON.stringify([]));
+      }
+    } catch (error) {}
+  };
 
   const getData = async () => {
     let data = await AsyncStorage.getItem("favourites");
@@ -77,7 +87,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   return (
     // @ts-ignore
     <AppContext.Provider
-      value={{ plants, categories, favourites, addData, deleteData }}
+      value={{ plants, categories, favourites, addData, deleteData, deleteAll }}
     >
       {children}
     </AppContext.Provider>

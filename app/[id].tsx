@@ -1,11 +1,16 @@
-import { AirbnbRating, FAB, Image, Text, makeStyles } from "@rneui/themed";
+import {
+  AirbnbRating,
+  Button,
+  FAB,
+  Image,
+  Text,
+  makeStyles,
+} from "@rneui/themed";
 import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getPlantByName } from "../utils";
-import { Button } from "@rneui/base";
 import { View } from "react-native";
 import { theme } from "../styles/theme";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAppContext } from "../context/Context";
 import { Plant } from "../db";
 
@@ -54,8 +59,13 @@ function renderCountries(countries: string[] | string) {
 export default function Page() {
   const { id } = useLocalSearchParams();
   const styles = useStyles();
+  const { favourites, addData, deleteData } = useAppContext();
   const plant = getPlantByName(id as string);
-  // const { addData } = useAppContext();
+
+  const isFavourite = favourites.includes(
+    favourites.find((p) => p.name === plant?.name) || ({} as Plant),
+    0
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -118,6 +128,14 @@ export default function Page() {
         }}
       />
       {/* <Button title="Back" onPress={() => addData(plant || ({} as Plant))} /> */}
+      {isFavourite ? (
+        <Button
+          title="Delete"
+          onPress={() => deleteData(plant || ({} as Plant))}
+        />
+      ) : (
+        <Button title="Add" onPress={() => addData(plant || ({} as Plant))} />
+      )}
     </SafeAreaView>
   );
 }
