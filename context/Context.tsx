@@ -23,8 +23,8 @@ const AppContext = createContext<AppContextType>({} as AppContextType);
 export const useAppContext = () => useContext<AppContextType>(AppContext);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [categories, setCategories] = useState<string[]>(getAllCategories());
-  const [plants, setPlants] = useState<Plant[]>(getAllFlowerFromDb());
+  const [categories] = useState<string[]>(getAllCategories());
+  const [plants] = useState<Plant[]>(getAllFlowerFromDb());
   const [favourites, setFavourites] = useState<Plant[]>([]);
 
   const getData = async () => {
@@ -36,7 +36,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       await AsyncStorage.setItem("favourites", data);
     }
     const favourites = JSON.parse(data);
-    console.log(favourites);
     setFavourites(favourites);
   };
 
@@ -58,9 +57,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         });
         return newValue;
       });
-    } catch (error) {
-      // console.log("already in")
-    }
+    } catch (error) {}
   };
   const deleteData = async (plant: Plant) => {
     try {
@@ -72,9 +69,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         });
         return fav;
       });
-    } catch (error) {
-      // console.log("already in")
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     getData();

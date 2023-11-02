@@ -55,7 +55,7 @@ export default function Page() {
   const { id } = useLocalSearchParams();
   const styles = useStyles();
   const plant = getPlantByName(id as string);
-  const { addData } = useAppContext();
+  // const { addData } = useAppContext();
 
   return (
     <SafeAreaView style={styles.container}>
