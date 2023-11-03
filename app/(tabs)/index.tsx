@@ -3,11 +3,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, View } from "react-native";
 import { useAppContext } from "../../context/Context";
 
-import PlantItem from "../../components/PlantItem";
+import CategorySection from "../../components/CategorySection";
+import { Categories } from "../../db";
 
 export default function TabOneScreen() {
   const styles = useStyles();
-  const { plants } = useAppContext();
   return (
     <SafeAreaView style={styles.container}>
       <Text h2 style={styles.title}>
@@ -18,12 +18,17 @@ export default function TabOneScreen() {
           height: "100%",
         }}
       >
-        <FlatList
+        {/* <FlatList
           style={styles.list}
           showsVerticalScrollIndicator={false}
           data={plants}
           keyExtractor={(plant) => plant.name}
           renderItem={({ item }) => <PlantItem item={item} type="normal" />}
+        /> */}
+        <FlatList
+          data={Categories}
+          keyExtractor={(cate) => cate.name}
+          renderItem={({ item }) => <CategorySection item={item} />}
         />
       </View>
       {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
