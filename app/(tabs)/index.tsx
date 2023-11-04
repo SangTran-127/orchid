@@ -18,20 +18,12 @@ export default function TabOneScreen() {
           height: "100%",
         }}
       >
-        {/* <FlatList
-          style={styles.list}
-          showsVerticalScrollIndicator={false}
-          data={plants}
-          keyExtractor={(plant) => plant.name}
-          renderItem={({ item }) => <PlantItem item={item} type="normal" />}
-        /> */}
         <FlatList
           data={Categories}
           keyExtractor={(cate) => cate.name}
           renderItem={({ item }) => <CategorySection item={item} />}
         />
       </View>
-      {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
     </SafeAreaView>
   );
 }

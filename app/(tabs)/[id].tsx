@@ -6,13 +6,13 @@ import {
   Text,
   makeStyles,
 } from "@rneui/themed";
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useGlobalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getPlantByName } from "../utils";
 import { View } from "react-native";
-import { theme } from "../styles/theme";
-import { useAppContext } from "../context/Context";
-import { Plant } from "../db";
+import { theme } from "../../styles/theme";
+import { useAppContext } from "../../context/Context";
+import { Plant } from "../../db";
+import { getPlantByName } from "../../utils";
 
 function renderCountries(countries: string[] | string) {
   const countryList = {
@@ -57,7 +57,7 @@ function renderCountries(countries: string[] | string) {
 }
 
 export default function Page() {
-  const { id } = useLocalSearchParams();
+  const { id } = useGlobalSearchParams();
   const styles = useStyles();
   const { favourites, addData, deleteData } = useAppContext();
   const plant = getPlantByName(id as string);

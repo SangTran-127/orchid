@@ -5,7 +5,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from "expo-router";
 import { Plant } from "../db";
 import { theme } from "../styles/theme";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { useAppContext } from "../context/Context";
 
 interface PlantItemProps {
@@ -17,7 +17,7 @@ const PlantItem: FC<PlantItemProps> = ({ item, type }) => {
   const { addData, deleteData } = useAppContext();
   return (
     <Card>
-      <TouchableOpacity onPress={() => router.push(`/${item.name}`)}>
+      <TouchableOpacity onPress={() => router.push(`/(tabs)/${item.name}`)}>
         <Card.Image
           source={{
             uri: item.image,

@@ -1,6 +1,4 @@
 import { Button, Text, makeStyles } from "@rneui/themed";
-import { Plant } from "../../db";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList } from "react-native";
 import PlantItem from "../../components/PlantItem";
